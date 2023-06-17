@@ -101,24 +101,11 @@ export class Datastore {
     public static seed(): void {
         const dishwasher = new SlotDto(1, "on/off", false, SupportedDeviceEnum.Dishwasher);
         const garageDoor = new SlotDto(2, "open/close", true, SupportedDeviceEnum.GarageDoor);
-        const emptySlot = new SlotDto(3, null, false, null);
+        const emptySlot = new SlotDto(3, undefined, false, null, undefined);
 
         this.add(dishwasher);
         this.add(garageDoor);
         this.add(emptySlot);
-
-        console.log("Simulating assign toggle undo process");
-        // Simulate the assign/toggle/undo
-        this.assign(3, SupportedDeviceEnum.LivingRoomLights);
-        this.toggle(3, true);
-        const slot = this.get(3);
-
-        console.log(slot.option, slot.option_text);
-        this.undo(3);
-
-        this.assign(3, null);
-        this.toggle(3, false);
-        this.undo(3);
 
         console.log(this.slots);
     }
