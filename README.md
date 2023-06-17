@@ -23,6 +23,7 @@ Please find the design diagram in the diagrams folder
 * Last slot action - I have implemented last slot action only, it would require some sort of entity tracking in the future.
 * Slots - slots are linked to supported devices
 * No UI - If I was to build this out with a UI I would use React and make modular components
+* Option value gets set when toggling slots
 
 ### Future considerations
 * Extend testing coverage

@@ -5,12 +5,14 @@ export class SlotDto {
   constructor(
     slotId: number, // Slot ID
     optionText: string, // Option text
-    option: boolean, // Option value
-    supportedDevice?: SupportedDeviceEnum // Supported device (optional)
+    option: boolean, // Option
+    supportedDevice?: SupportedDeviceEnum, // Supported device (optional)
+    optionValue?: string, //Option value
   ) {
     this.slotId = slotId;
     this.optionText = optionText;
     this.option = option;
+    this.optionValue = optionValue;
     this.supportedDevice = supportedDevice;
   }
 
@@ -19,6 +21,9 @@ export class SlotDto {
 
   @IsString()
   readonly optionText: string; // Option text is a string
+
+  @IsString()
+  readonly optionValue?: string; // Option text is a string
 
   @IsBoolean()
   readonly option: boolean; // Option value is a boolean

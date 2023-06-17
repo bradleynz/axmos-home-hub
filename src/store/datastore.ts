@@ -61,6 +61,7 @@ export class Datastore {
                 supported_device: toggledSlot.supported_device
             }
             toggledSlot.option = option;
+            toggledSlot.option_value = this.getOptionValue(option, toggledSlot);
         }
 
         return toggledSlot;
@@ -100,7 +101,7 @@ export class Datastore {
         this.assign(3, SupportedDeviceEnum.LivingRoomLights);
         this.toggle(3, true);
         const slot = this.get(3);
-        
+
         console.log(slot.option, slot.option_text);
         this.undo(3);
 
@@ -109,6 +110,30 @@ export class Datastore {
         this.undo(3);
 
         console.log(this.slots);
+    }
+
+    private static getOptionValue(option: boolean, toggledSlot: Slot): string {
+        const optionText = toggledSlot.option_text.toLowerCase();
+      
+        if (option && optionText.includes("on")) {
+          return "ON";
+        } else if (!option && optionText.includes("on")) {
+          return "OFF";
+        }
+      
+        if (option && optionText.includes("open")) {
+          return "OPEN";
+        } else if (!option && optionText.includes("open")) {
+          return "CLOSED";
+        }
+      
+        if (option && optionText.includes("true")) {
+          return "TRUE";
+        } else if (!option && optionText.includes("true")) {
+          return "FALSE";
+        }
+      
+        return "";
     }
 
     private static add(slotDto: SlotDto): void {
