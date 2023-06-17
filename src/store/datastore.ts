@@ -7,7 +7,11 @@ import { Slot } from "../models/slot.model";
  */
 export class Datastore {
     private static slots: Slot[] = [];
-
+    private static supported_device_mapping = [
+        { device: SupportedDeviceEnum.Dishwasher, text: "on/off" },
+        { device: SupportedDeviceEnum.GarageDoor, text: "open/close" },
+        { device: SupportedDeviceEnum.LivingRoomLights, text: "on/off" }
+    ]
     /**
      * Assign a supported device to a slot.
      * @param slotId The ID of the slot to assign.
@@ -23,6 +27,10 @@ export class Datastore {
                 option: assignSlot.option,
                 optionValue: assignSlot.option_value,
                 supported_device: assignSlot.supported_device
+            }
+            let mapping = this.supported_device_mapping.find(mapping => mapping.device == supportedDevice);
+            if(mapping){
+                assignSlot.option_text = mapping.text;
             }
             assignSlot.supported_device = supportedDevice;
         }
@@ -91,9 +99,9 @@ export class Datastore {
      * Seed the datastore with initial slot data.
      */
     public static seed(): void {
-        const dishwasher = new SlotDto(1, "On/Off", false, SupportedDeviceEnum.Dishwasher);
-        const garageDoor = new SlotDto(2, "Open/Close", true, SupportedDeviceEnum.GarageDoor);
-        const emptySlot = new SlotDto(3, "On/Off", false, null);
+        const dishwasher = new SlotDto(1, "on/off", false, SupportedDeviceEnum.Dishwasher);
+        const garageDoor = new SlotDto(2, "open/close", true, SupportedDeviceEnum.GarageDoor);
+        const emptySlot = new SlotDto(3, null, false, null);
 
         this.add(dishwasher);
         this.add(garageDoor);
@@ -117,27 +125,27 @@ export class Datastore {
 
     private static getOptionValue(option: boolean, toggledSlot: Slot): string {
         const optionText = toggledSlot.option_text.toLowerCase();
+        const on = optionText.includes("on");
+        const off = optionText.includes("off");
+        const open = optionText.includes("open");
+        const closed = optionText.includes("close");
       
-        if (option && optionText.includes("on")) {
-          return "ON";
-        } else if (!option && optionText.includes("on")) {
-          return "OFF";
-        }
-      
-        if (option && optionText.includes("open")) {
-          return "OPEN";
-        } else if (!option && optionText.includes("open")) {
-          return "CLOSED";
-        }
-      
-        if (option && optionText.includes("true")) {
-          return "TRUE";
-        } else if (!option && optionText.includes("true")) {
-          return "FALSE";
+        if (option) {
+          if (on) {
+            return "ON";
+          } else if (open) {
+            return "OPEN";
+          }
+        } else {
+          if (off) {
+            return "OFF";
+          } else if (closed) {
+            return "CLOSED";
+          }
         }
       
         return "";
-    }
+    }      
 
     private static add(slotDto: SlotDto): void {
         const slot = new Slot();
