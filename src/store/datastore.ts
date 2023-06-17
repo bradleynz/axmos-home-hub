@@ -21,6 +21,7 @@ export class Datastore {
             assignSlot.last_toggled_slot = {
                 slotId: assignSlot.slotId,
                 option: assignSlot.option,
+                optionValue: assignSlot.option_value,
                 supported_device: assignSlot.supported_device
             }
             assignSlot.supported_device = supportedDevice;
@@ -39,6 +40,7 @@ export class Datastore {
 
         if (toggledSlot) {
             toggledSlot.option = toggledSlot.last_toggled_slot.option;
+            toggledSlot.option_value = toggledSlot.last_toggled_slot.option_value;
             toggledSlot.supported_device = toggledSlot.last_toggled_slot.supported_device;
         }
 
@@ -58,6 +60,7 @@ export class Datastore {
             toggledSlot.last_toggled_slot = {
                 slotId: toggledSlot.slotId,
                 option: toggledSlot.option,
+                optionValue: toggledSlot.option_value,
                 supported_device: toggledSlot.supported_device
             }
             toggledSlot.option = option;
