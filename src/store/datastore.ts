@@ -99,6 +99,9 @@ export class Datastore {
         // Simulate the assign/toggle/undo
         this.assign(3, SupportedDeviceEnum.LivingRoomLights);
         this.toggle(3, true);
+        const slot = this.get(3);
+        
+        console.log(slot.option, slot.option_text);
         this.undo(3);
 
         this.assign(3, null);
