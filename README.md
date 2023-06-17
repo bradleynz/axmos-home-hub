@@ -10,7 +10,7 @@ The following design patterns were used:
 - CQRS - Command Query Response Segregation
 
 ### Diagrams used to explain decisions
-Please find the design diagram in the diagrams folder
+Please find the design diagrams in the diagrams folder
 
 ### Design Decisions
 * Platform - to build this API out I decided to use nest JS it provides a great framework to build highly scalable applications
@@ -34,7 +34,8 @@ Please find the design diagram in the diagrams folder
 ### Starting the application
 run `npm install`
 run `npm start`
-to test `npm run test`
+
+to run the unit tests run `npm run test`
 
 browse to http://localhost:3000/ I have setup swagger for ease of use
 
