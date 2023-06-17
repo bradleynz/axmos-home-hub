@@ -11,7 +11,8 @@ export class Datastore {
         { device: SupportedDeviceEnum.Dishwasher, text: "on/off" },
         { device: SupportedDeviceEnum.GarageDoor, text: "open/close" },
         { device: SupportedDeviceEnum.LivingRoomLights, text: "on/off" }
-    ]
+    ];
+
     /**
      * Assign a supported device to a slot.
      * @param slotId The ID of the slot to assign.
@@ -27,7 +28,7 @@ export class Datastore {
                 option: assignSlot.option,
                 optionValue: assignSlot.option_value,
                 supported_device: assignSlot.supported_device
-            }
+            };
             let mapping = this.supported_device_mapping.find(mapping => mapping.device == supportedDevice);
             if(mapping){
                 assignSlot.option_text = mapping.text;
@@ -70,7 +71,7 @@ export class Datastore {
                 option: toggledSlot.option,
                 optionValue: toggledSlot.option_value,
                 supported_device: toggledSlot.supported_device
-            }
+            };
             toggledSlot.option = option;
             toggledSlot.option_value = this.getOptionValue(option, toggledSlot);
         }
@@ -110,6 +111,12 @@ export class Datastore {
         console.log(this.slots);
     }
 
+    /**
+     * Get the option value based on the provided option and toggled slot.
+     * @param option The option value.
+     * @param toggledSlot The toggled slot.
+     * @returns The corresponding option value as a string.
+     */
     private static getOptionValue(option: boolean, toggledSlot: Slot): string {
         const optionText = toggledSlot.option_text.toLowerCase();
         const on = optionText.includes("on");
@@ -134,6 +141,10 @@ export class Datastore {
         return "";
     }      
 
+    /**
+     * Add a slot to the datastore.
+     * @param slotDto The slot DTO to add.
+     */
     private static add(slotDto: SlotDto): void {
         const slot = new Slot();
         slot.set(slotDto);
