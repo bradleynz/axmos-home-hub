@@ -34,6 +34,7 @@ Please find the design diagram in the diagrams folder
 ### Starting the application
 run `npm install`
 run `npm start`
+to test `npm run test`
 
 browse to http://localhost:3000/ I have setup swagger for ease of use
 
