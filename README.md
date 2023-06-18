@@ -48,6 +48,8 @@ http://localhost:3000/slots/{slotId}/assign
 http://localhost:3000/slots/{slotId}/toggle 
 http://localhost:3000/slots/{slotId}/undo
 
+## Add more slots
+http://localhost:3000/slots/add - POST - no need to specify a body
 
 ## Seeded slots
 slotIds = [1, 2, 3]

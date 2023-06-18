@@ -10,6 +10,9 @@ export class SlotRepository {
     get(slotId: number) {
         return Datastore.get(slotId);
     }
+    add() {
+        Datastore.addSlot();
+    }
     assign(slotId: number, supported_device: SupportedDeviceEnum) {
         return Datastore.assign(slotId, supported_device);
     }

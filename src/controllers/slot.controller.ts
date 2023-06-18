@@ -7,6 +7,7 @@ import {
   NotFoundException,
   Param,
   ParseIntPipe,
+  Post,
   Put,
 } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
@@ -18,6 +19,7 @@ import { AllSlotQuery } from '../queries/slot.all.query';
 import { GetSlotQuery } from '../queries/slot.get.query';
 import { ToggleUndoSlotCommand } from '../commands/slot.toggle.undo.command';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { AddSlotCommand } from '../commands/slot.add.command';
 
 @ApiTags('slots')
 @Controller('slots')
@@ -58,6 +60,15 @@ export class SlotController {
   async all(): Promise<Slot[]> {
     this.logger.log("Executing all fetch");
     return this.queryBus.execute(new AllSlotQuery());
+  }
+
+  /**
+   * Send a command to add a slot.
+   * @body slotDto
+   */
+  @Post('add')
+  async add() {
+    await this.commandBus.execute(new AddSlotCommand());
   }
 
   /**

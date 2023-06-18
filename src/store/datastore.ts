@@ -126,7 +126,17 @@ export class Datastore {
             return option ? mapping.valueToggleTrue : mapping.valueToggleFalse;
         }
         return ""
-    }      
+    }
+    
+    /**
+     * Add a slot to the datastore.
+     * @param slotDto The slot DTO to add.
+     */
+    public static addSlot(): void {
+        const slot = new Slot();
+        slot.set(new SlotDto(this.slots.length + 1, "", false));
+        this.slots.push(slot);
+    }
 
     /**
      * Add a slot to the datastore.
