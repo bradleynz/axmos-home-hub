@@ -1,6 +1,8 @@
 # Getting Started
 Welcome to aXmos the new way to manage your connected home devices
 
+![alt text](https://github.com/bradleynz/axmos-home-hub/blob/main/diagrams/ui-flow.png)
+
 ### Design Patterns
 The following design patterns were used:
 - SOLID
@@ -25,6 +27,7 @@ Please find the design diagrams in the diagrams folder
 * No UI - If I was to build this out with a UI I would use React and make modular components
 * Option value gets set when toggling slots
 * Added logger
+
 
 ### Future considerations
 * Extend testing coverage
