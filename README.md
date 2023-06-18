@@ -51,18 +51,21 @@ http://localhost:3000/slots/{slotId}/toggle
 http://localhost:3000/slots/{slotId}/undo
 
 
+## Seeded slots
+slotIds = [1, 2, 3]
+When calling a GET request you can use one of the IDs above
+
 ## Supported devices
 * Dishwasher = 1,
 * GarageDoor = 2,
 * LivingRoomLights = 3
 
-this use the PUT method so you will need a body:
-for assign this maps to src/enums/supported-device.enum.ts:
+To assign a slot use the following body - this method uses PUT:
 `{
   "supported_device": 2
 }`
 
-for toggle this maps to a true/false boolean its generic will map to OPEN/CLOSE etc:
+To toggle a slot use the following body - this method uses PUT:
 `{
   "option": true
 }`
