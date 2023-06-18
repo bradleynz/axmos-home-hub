@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Logger,
   NotFoundException,
   Param,
   ParseIntPipe,
@@ -21,6 +22,9 @@ import { ApiBody, ApiTags } from '@nestjs/swagger';
 @ApiTags('slots')
 @Controller('slots')
 export class SlotController {
+  
+  private readonly logger = new Logger(SlotController.name);
+  
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
@@ -34,13 +38,16 @@ export class SlotController {
    */
   @Get(':id')
   async get(@Param('id', ParseIntPipe) id: number): Promise<Slot> {
-    const device = await this.queryBus.execute(new GetSlotQuery(id));
 
-    if (!device) {
+    this.logger.log("Executing get " + id);
+    const slot = await this.queryBus.execute(new GetSlotQuery(id));
+
+    if (!slot) {
+      this.logger.log("throw not found.");
       throw new NotFoundException();
     }
 
-    return device;
+    return slot;
   }
 
   /**
@@ -49,6 +56,7 @@ export class SlotController {
    */
   @Get()
   async all(): Promise<Slot[]> {
+    this.logger.log("Executing all fetch");
     return this.queryBus.execute(new AllSlotQuery());
   }
 
@@ -64,7 +72,10 @@ export class SlotController {
     @Param('id', ParseIntPipe) id: number,
     @Body('supported_device') supportedDevice: SupportedDeviceEnum,
   ) {
+    this.logger.log("Executing assign " + id, " supported device: " + supportedDevice);
+
     if (!Object.values(SupportedDeviceEnum).includes(supportedDevice)) {
+      this.logger.log("throw supported device invalid.");
       throw new BadRequestException('Invalid supported device.');
     }
 
@@ -86,6 +97,15 @@ export class SlotController {
     if (typeof option !== 'boolean') {
       throw new BadRequestException('Invalid option value.');
     }
+    this.logger.log("Executing toggle " + id + " option: " + option);
+
+    //Fetch slot and validate the supported device is linked
+    const slot = await this.queryBus.execute(new GetSlotQuery(id));
+
+    if(slot && slot.supported_device == undefined){
+      this.logger.log("throw supported device missing.");
+      throw new BadRequestException('Must set supported device before toggling.');
+    }
 
     await this.commandBus.execute(new ToggleSlotCommand(id, option));
   }
@@ -100,6 +120,7 @@ export class SlotController {
   async undo(
     @Param('id', ParseIntPipe) id: number
   ) {
+    this.logger.log("undo exec");
     await this.commandBus.execute(new ToggleUndoSlotCommand(id));
   }
 }

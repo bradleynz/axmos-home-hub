@@ -1,9 +1,13 @@
 import { ICommandHandler, CommandHandler } from '@nestjs/cqrs';
 import { SlotRepository } from '../../repositories/slot.repository';
 import { ToggleSlotCommand } from '../slot.toggle.command';
+import { Logger } from '@nestjs/common/services/logger.service';
 
 @CommandHandler(ToggleSlotCommand)
 export class ToggleSlotCommandHandler implements ICommandHandler<ToggleSlotCommand> {
+  
+  private readonly logger = new Logger(ToggleSlotCommandHandler.name);
+  
   constructor(
     private readonly repository: SlotRepository
   ) {}
@@ -14,7 +18,7 @@ export class ToggleSlotCommandHandler implements ICommandHandler<ToggleSlotComma
    * @returns The result of the toggle operation.
    */
   async execute(command: ToggleSlotCommand) {
-    console.log("Executing ToggleSlotCommand");
+    this.logger.log("Executing ToggleSlotCommand");
     const { slotId, option } = command;
     return this.repository.toggle(slotId, option);
   }

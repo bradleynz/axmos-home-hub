@@ -1,9 +1,13 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetSlotQuery } from '../slot.get.query';
 import { SlotRepository } from '../../repositories/slot.repository';
+import { Logger } from '@nestjs/common/services/logger.service';
 
 @QueryHandler(GetSlotQuery)
 export class GetSlotQueryHandler implements IQueryHandler<GetSlotQuery> {
+  
+  private readonly logger = new Logger(GetSlotQueryHandler.name);
+
   constructor(private readonly repository: SlotRepository) {}
 
   /**
@@ -12,7 +16,7 @@ export class GetSlotQueryHandler implements IQueryHandler<GetSlotQuery> {
    * @returns The slot object if found.
    */
   async execute(query: GetSlotQuery) {
-    console.log(query);
+    this.logger.log(query);
     return this.repository.get(query.slotId);
   }
 }

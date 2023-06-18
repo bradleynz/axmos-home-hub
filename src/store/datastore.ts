@@ -8,9 +8,9 @@ import { Slot } from "../models/slot.model";
 export class Datastore {
     private static slots: Slot[] = [];
     private static supported_device_mapping = [
-        { device: SupportedDeviceEnum.Dishwasher, text: "on/off" },
-        { device: SupportedDeviceEnum.GarageDoor, text: "open/close" },
-        { device: SupportedDeviceEnum.LivingRoomLights, text: "on/off" }
+        { device: SupportedDeviceEnum.Dishwasher, text: "on/off", valueToggleTrue: "ON", valueToggleFalse: "OFF" },
+        { device: SupportedDeviceEnum.GarageDoor, text: "open/close", valueToggleTrue: "OPEN", valueToggleFalse: "CLOSE"},
+        { device: SupportedDeviceEnum.LivingRoomLights, text: "on/off", valueToggleTrue: "ON", valueToggleFalse: "OFF" }
     ];
 
     /**
@@ -65,7 +65,7 @@ export class Datastore {
     public static toggle(slotId: number, option: boolean): Slot | undefined {
         const toggledSlot = this.slots.find(slot => slot.slotId == slotId);
 
-        if (toggledSlot) {
+        if (toggledSlot && toggledSlot.supported_device) {
             toggledSlot.last_toggled_slot = {
                 slotId: toggledSlot.slotId,
                 option: toggledSlot.option,
@@ -75,7 +75,6 @@ export class Datastore {
             toggledSlot.option = option;
             toggledSlot.option_value = this.getOptionValue(option, toggledSlot);
         }
-
         return toggledSlot;
     }
 
@@ -107,8 +106,6 @@ export class Datastore {
         this.add(dishwasher);
         this.add(garageDoor);
         this.add(emptySlot);
-
-        console.log(this.slots);
     }
 
     /**
@@ -118,27 +115,12 @@ export class Datastore {
      * @returns The corresponding option value as a string.
      */
     private static getOptionValue(option: boolean, toggledSlot: Slot): string {
-        const optionText = toggledSlot.option_text.toLowerCase();
-        const on = optionText.includes("on");
-        const off = optionText.includes("off");
-        const open = optionText.includes("open");
-        const closed = optionText.includes("close");
-      
-        if (option) {
-          if (on) {
-            return "ON";
-          } else if (open) {
-            return "OPEN";
-          }
-        } else {
-          if (off) {
-            return "OFF";
-          } else if (closed) {
-            return "CLOSED";
-          }
+        const mapping = this.supported_device_mapping
+        .find(mapping => mapping.device == toggledSlot.supported_device);
+        if(mapping){
+            return option ? mapping.valueToggleTrue : mapping.valueToggleFalse;
         }
-      
-        return "";
+        return ""
     }      
 
     /**
