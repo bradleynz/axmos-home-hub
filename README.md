@@ -1,8 +1,6 @@
 # Getting Started
 Welcome to aXmos the new way to manage your connected home devices
 
-![alt text](https://github.com/bradleynz/axmos-home-hub/blob/main/diagrams/ui-flow.png)
-
 ### Design Patterns
 The following design patterns were used:
 - SOLID
@@ -72,5 +70,13 @@ To toggle a slot use the following body - this method uses PUT:
 
 for undo you don't require a body
 
-
+## Diagrams
+### UI Flow
+![alt text](https://github.com/bradleynz/axmos-home-hub/blob/main/diagrams/ui-flow.png)
+### End to End Flow
+![alt text](https://github.com/bradleynz/axmos-home-hub/blob/main/diagrams/end-to-end-flow.png)
+### Datastore Flow
+![alt text](https://github.com/bradleynz/axmos-home-hub/blob/main/diagrams/data-store-flow.png)
+### CQRS explained in context
+![alt text](https://github.com/bradleynz/axmos-home-hub/blob/main/diagrams/cqrs-explained-in-context.png)
 ### Found this task really enjoyable :D
