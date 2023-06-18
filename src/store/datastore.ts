@@ -27,13 +27,16 @@ export class Datastore {
                 slotId: assignSlot.slotId,
                 option: assignSlot.option,
                 optionValue: assignSlot.option_value,
-                supported_device: assignSlot.supported_device
+                supported_device: assignSlot.supported_device,
+                supported_device_value: SupportedDeviceEnum[assignSlot.supported_device]
             };
             let mapping = this.supported_device_mapping.find(mapping => mapping.device == supportedDevice);
             if(mapping){
                 assignSlot.option_text = mapping.text;
             }
+            assignSlot.option_value = "";
             assignSlot.supported_device = supportedDevice;
+            assignSlot.supported_device_value = SupportedDeviceEnum[assignSlot.supported_device];
         }
 
         return assignSlot;
@@ -99,8 +102,10 @@ export class Datastore {
      * Seed the datastore with initial slot data.
      */
     public static seed(): void {
-        const dishwasher = new SlotDto(1, "on/off", false, SupportedDeviceEnum.Dishwasher);
-        const garageDoor = new SlotDto(2, "open/close", true, SupportedDeviceEnum.GarageDoor);
+        const dishwasher = new SlotDto(1, "on/off", false, SupportedDeviceEnum.Dishwasher, 
+        SupportedDeviceEnum[SupportedDeviceEnum.Dishwasher]);
+        const garageDoor = new SlotDto(2, "open/close", true, SupportedDeviceEnum.GarageDoor, 
+        SupportedDeviceEnum[SupportedDeviceEnum.GarageDoor]);
         const emptySlot = new SlotDto(3, undefined, false, null, undefined);
 
         this.add(dishwasher);

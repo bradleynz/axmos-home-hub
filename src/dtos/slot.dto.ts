@@ -7,6 +7,7 @@ export class SlotDto {
     optionText: string, // Option text
     option: boolean, // Option
     supportedDevice?: SupportedDeviceEnum, // Supported device (optional)
+    supportedDeviceValue: string = SupportedDeviceEnum[supportedDevice],
     optionValue?: string, //Option value
   ) {
     this.slotId = slotId;
@@ -14,6 +15,7 @@ export class SlotDto {
     this.option = option;
     this.optionValue = optionValue;
     this.supportedDevice = supportedDevice;
+    this.supportedDeviceValue = supportedDeviceValue;
   }
 
   @IsNumber()
@@ -30,4 +32,7 @@ export class SlotDto {
 
   @IsNumber()
   readonly supportedDevice?: SupportedDeviceEnum; // Supported device is an optional number
+
+  @IsString()
+  readonly supportedDeviceValue: string //Supported device value
 }
