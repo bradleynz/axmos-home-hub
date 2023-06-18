@@ -104,7 +104,7 @@ export class SlotController {
 
     if(slot && slot.supported_device == undefined){
       this.logger.log("throw supported device missing.");
-      throw new BadRequestException('Must set supported device before toggling.');
+      throw new BadRequestException('Must assign supported device before toggling.');
     }
 
     await this.commandBus.execute(new ToggleSlotCommand(id, option));
