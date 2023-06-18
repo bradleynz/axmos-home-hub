@@ -24,6 +24,7 @@ Please find the design diagrams in the diagrams folder
 * Slots - slots are linked to supported devices
 * No UI - If I was to build this out with a UI I would use React and make modular components
 * Option value gets set when toggling slots
+* Added logger
 
 ### Future considerations
 * Extend testing coverage
@@ -46,13 +47,19 @@ http://localhost:3000/slots/{slotId}/assign
 http://localhost:3000/slots/{slotId}/toggle 
 http://localhost:3000/slots/{slotId}/undo
 
+
+## Supported devices
+* Dishwasher = 1,
+* GarageDoor = 2,
+* LivingRoomLights = 3
+
 this use the PUT method so you will need a body:
 for assign this maps to src/enums/supported-device.enum.ts:
 `{
   "supported_device": 2
 }`
 
-for toggle this maps to a true/false boolean its generic:
+for toggle this maps to a true/false boolean its generic will map to OPEN/CLOSE etc:
 `{
   "option": true
 }`
