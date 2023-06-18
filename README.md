@@ -53,7 +53,7 @@ http://localhost:3000/slots/{slotId}/undo
 
 ## Seeded slots
 slotIds = [1, 2, 3]
-When calling a GET request you can use one of the IDs above
+When calling a GET request you can use one of these IDs
 
 ## Supported devices
 * Dishwasher = 1,
