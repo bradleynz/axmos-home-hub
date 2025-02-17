@@ -81,4 +81,3 @@ for undo you don't require a body
 ![alt text](https://github.com/bradleynz/axmos-home-hub/blob/main/diagrams/data-store-flow.png)
 ### CQRS explained in context
 ![alt text](https://github.com/bradleynz/axmos-home-hub/blob/main/diagrams/cqrs-explained-in-context.png)
-### Found this task really enjoyable :D
